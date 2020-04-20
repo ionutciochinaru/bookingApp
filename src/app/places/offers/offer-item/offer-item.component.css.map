@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,cAAe;EACb,OAAO,EAAE,IAAI;EACb,WAAW,EAAE,MAAM;;AAErB,WAAY;EACV,WAAW,EAAE,IAAI;;AAEnB,EAAG;EACD,SAAS,EAAE,IAAI;EACf,OAAO,EAAE,GAAG",
+"sources": ["offer-item.component.scss"],
+"names": [],
+"file": "offer-item.component.css"
+}

@@ -1,0 +1,55 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>discover</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-segment (ionChange)="onFilterUpdate($event)" value="all">
+    <ion-segment-button value="all">All Places</ion-segment-button>
+    <ion-segment-button value="bookable">Bookable Places</ion-segment-button>
+  </ion-segment>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>{{ loadedPlaces[0].title}}</ion-card-title>
+            <ion-card-subtitle>{{loadedPlaces[0].price | currency}} / Night</ion-card-subtitle>
+          </ion-card-header>
+          <ion-img [src]="loadedPlaces[0].imageURL"></ion-img>
+          <ion-card-content>
+            <p>{{loadedPlaces[0].description}}</p>
+          </ion-card-content>
+          <div class="ion-text-right ion-padding">
+            <ion-button
+            fill="clear"
+            routerDirection="forward"
+            color="primary"
+            [routerLink]="['/','places','tabs','discover',loadedPlaces[0].id]">More</ion-button>
+          </div>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-sm="8" offset-sm="2" class="ion-text-center">
+        <ion-virtual-scroll [items]="itemsLoadedPlaces" [approxItemHeight]="70">
+          <ion-item detail *virtualItem="let place"
+              [routerLink]="['/', 'places', 'tabs', 'discover',place.id]">
+            <ion-thumbnail slot="start">
+              <ion-img src="{{place.imageURL}}"></ion-img>
+            </ion-thumbnail>
+            <ion-label>
+            <h2>{{place.title}}</h2>
+            <p>{{place.description}}</p>
+          </ion-label>
+            <ion-label class="ion-text-right">
+              <h2>{{place.price | currency}}</h2>
+            </ion-label>
+          </ion-item>
+        </ion-virtual-scroll>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
