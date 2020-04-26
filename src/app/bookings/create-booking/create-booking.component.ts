@@ -2,6 +2,7 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Place} from '../../places/place.model';
 import {ModalController} from '@ionic/angular';
 import {NgForm} from '@angular/forms';
+import {BookingService} from '../booking.service';
 
 @Component({
   selector: 'app-create-booking',
@@ -15,7 +16,8 @@ export class CreateBookingComponent implements OnInit {
   startDate: string;
   endDate: string;
 
-  constructor(private modalCtrl: ModalController) { }
+  constructor(private modalCtrl: ModalController,
+              private bookingService: BookingService) { }
 
   ngOnInit() {
     const availableFrom = new Date(this.selectedPlace.availableFrom);
