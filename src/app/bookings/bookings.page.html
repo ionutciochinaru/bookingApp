@@ -8,14 +8,14 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid *ngIf="!listedLoadedBookings || listedLoadedBookings <= 0">
+  <ion-grid *ngIf="!listedLoadedBookings || listedLoadedBookings.length <= 0">
     <ion-row>
       <ion-col class="ion-padding ion-text-center">
         <p>You don't have any bookings.</p>
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-grid *ngIf="listedLoadedBookings || listedLoadedBookings >= 0">
+  <ion-grid *ngIf="listedLoadedBookings || listedLoadedBookings.length >= 0">
     <ion-row class="ion-padding" >
       <ion-col size-md="6" offset-md="3">
         <ion-virtual-scroll [items]="listedLoadedBookings" approx-item-height="70px">
@@ -36,5 +36,4 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-
 </ion-content>
