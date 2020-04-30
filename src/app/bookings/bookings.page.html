@@ -8,19 +8,29 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid *ngIf="!listedLoadedBookings || listedLoadedBookings.length <= 0">
+  <ion-grid *ngIf="isLoading">
+    <ion-row>
+      <ion-col class="ion-padding ion-text-center">
+        <ion-spinner name="dots"></ion-spinner>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="!isLoading && (!listedLoadedBookings || listedLoadedBookings.length <= 0)">
     <ion-row>
       <ion-col class="ion-padding ion-text-center">
         <p>You don't have any bookings.</p>
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-grid *ngIf="listedLoadedBookings || listedLoadedBookings.length >= 0">
-    <ion-row class="ion-padding" >
+  <ion-grid *ngIf="!isLoading && (listedLoadedBookings || listedLoadedBookings.length >= 0)">
+    <ion-row>
       <ion-col size-md="6" offset-md="3">
         <ion-virtual-scroll [items]="listedLoadedBookings" approx-item-height="70px">
           <ion-item-sliding #slidingBooking *virtualItem="let booking">
-            <ion-item >
+            <ion-item lines="none">
+              <ion-thumbnail slot="start">
+                <img class="ion-border-radius" src="{{booking.placeImage}}">
+              </ion-thumbnail>
               <ion-label>
                 <h5>{{booking.placeTitle}}</h5>
                 <p>Guests: {{booking.guestNumber}}</p>
