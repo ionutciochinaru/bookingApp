@@ -3,6 +3,7 @@ import {PlacesService} from '../places.service';
 import {Place} from '../place.model';
 import {Subscription} from 'rxjs';
 import {AuthService} from '../../auth/auth.service';
+import {LoadingController} from '@ionic/angular';
 
 @Component({
   selector: 'app-discover',
@@ -16,13 +17,25 @@ export class DiscoverPage implements OnInit, OnDestroy {
   itemsLoadedPlaces: Place[];
   relevantPlaces: Place[];
   constructor(private placesService: PlacesService,
-              private authService: AuthService) { }
+              private authService: AuthService,
+              private loadingCtrl: LoadingController) { }
 
   ngOnInit() {
     this.loadedPlacesSub = this.placesService.places.subscribe( loadedPlaces => {
       this.loadedPlaces = loadedPlaces;
       this.onFilterUpdate(this.filter);
     });
+  }
+
+  ionViewWillEnter() {
+    this.loadingCtrl.create({message: 'Fetching places...'}).then(
+        loadingEl => {
+          loadingEl.present();
+          this.placesService.fetchPlaces().subscribe(() => {
+            loadingEl.dismiss();
+          });
+        }
+    );
   }
 
   onFilterUpdate(filter: string) {
